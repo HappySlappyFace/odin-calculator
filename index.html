@@ -4,15 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Kaalculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,600;0,800;1,600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <footer>
-        <div class="footerDiv">
-            <H1>Calculaaator</H1>
-            <h3>Done by HappySlappyFace, </h3>
+    <header>
+        <H1>Kaalculator</H1>
+        <h3>Done by HappySlappyFace, following <span id="TOP">The Odin Project</span> Cirriculum</h3>
+    </header>
+    <main class="calculator">
+        <div class="display">
+            <h2>12345</h2>
         </div>
-    </footer>
+        <div class="container">
+            <div data-function class="button">AC</div>
+            <div data-function class="button">DEL</div>
+            <div data-function class="button">+/-</div>
+            <div data-operator class="button">/</div>
+            <div data-number class="button">1</div>
+            <div data-number class="button">2</div>
+            <div data-number class="button">3</div>
+            <div data-operator class="button">*</div>
+            <div data-number class="button">4</div>
+            <div data-number class="button">5</div>
+            <div data-number class="button">6</div>
+            <div data-operator class="button">+</div>
+            <div data-number class="button">7</div>
+            <div data-number class="button">8</div>
+            <div data-number class="button">9</div>
+            <div data-operator class="button">-</div>
+            <div data-number class="button">.</div>
+            <div data-number class="button">0</div>
+            <div data-function class="button span-2">=</div>
+        </div>
+    </main>
+    
     <script src="script.js"></script>
 </body>
 </html>
