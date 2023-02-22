@@ -1,5 +1,10 @@
 const buttons=document.querySelectorAll(".button");
 const display=document.querySelector("#displayText");
+const displayError=document.querySelector("#displayOverflow");
+
+nixieEdge=getComputedStyle(document.documentElement).getPropertyValue('--nixieEdge');
+DisplayBackground=getComputedStyle(document.documentElement).getPropertyValue('--displayBackground');
+
 function operator(num1,num2,oper){
     switch (oper){
         case "+":
@@ -44,16 +49,23 @@ function divide(){
 let ValueStackPos1=null;
 let ValueStackPos2=null;
 let permissionToClear=1;
+let permissionToWrite=1;
 let newValue=0;
 let OperatorStackPos1="";
-let lastOperationResult=0;
+let showError=0;
+let floatClamp=1000;
 function updateValue(a){
     display.textContent=a;
+}
+function updateError(a){
+    a==1? displayError.style.color=nixieEdge : displayError.style.color=DisplayBackground;
+    permissionToWrite=Math.abs(a-1);
 }
 
 function keyInput(){
     let pressed=this.textContent;
     // console.log(pressed);
+    
     if (isNaN(pressed.toString())==true){
         switch (pressed){
             case "AC":
@@ -75,7 +87,7 @@ function keyInput(){
                 else if (ValueStackPos2==null){updateValue(ValueStackPos1);}
                 else{
                     ValueStackPos1= operator(parseInt(ValueStackPos2),parseInt(ValueStackPos1),OperatorStackPos1);
-                    updateValue(ValueStackPos1);
+                    updateValue(Math.round(ValueStackPos1*floatClamp)/floatClamp);
                     ValueStackPos2=null;
                 }
                 permissionToClear=1;
@@ -101,11 +113,14 @@ function keyInput(){
             permissionToClear=0;
         }
         else{
-            ValueStackPos1 == 0 ? newValue=pressed : newValue=ValueStackPos1+pressed;
-            ValueStackPos1=newValue;
-            updateValue(ValueStackPos1);
+            if(permissionToWrite==1){
+                ValueStackPos1 == 0 ? newValue=pressed : newValue=ValueStackPos1+pressed
+                ValueStackPos1=newValue;
+                updateValue(ValueStackPos1);
+            }
         }
     }
+    if(ValueStackPos1!=null){ValueStackPos1.length==10 ? updateError(1) : updateError(0);}
 }
 
 function initalize(){

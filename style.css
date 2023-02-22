@@ -18,7 +18,7 @@ html,body{height: 100%;}
 
     --nixieCenter: #d2fbff;
     --nixieEdge: #7ceaf2;
-
+    --displayBackground: #033a34;
 }
 @font-face {
     font-family: Calculator;
@@ -75,7 +75,7 @@ main{flex: 1 0 auto;}
 .display{
     
     justify-self: center;
-    background-color: #033a34; /*00564d*/
+    background-color: var(--displayBackground); /*00564d*/
     width: 100%-1rem;
     height: 4rem;
     display: flex;
@@ -92,6 +92,11 @@ main{flex: 1 0 auto;}
     color: var(--nixieCenter);
     font-family: Calculator;
     text-shadow: 0 0 5px var(--nixieEdge);
+}
+#displayOverflow{
+    position: fixed;
+    transform: translateX(-13rem);
+    color: var(--displayBackground);
 }
 .container{
     display: grid;
