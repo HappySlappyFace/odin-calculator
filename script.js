@@ -84,13 +84,20 @@ function keyInput(){
                 break;
             case "=":
                 if (ValueStackPos1==null){updateValue("0");}
-                else if (ValueStackPos2==null){updateValue(ValueStackPos1);}
+                else if (ValueStackPos2==null ||permissionToWrite==0){updateValue(ValueStackPos1);}
                 else{
-                    ValueStackPos1= operator(parseInt(ValueStackPos2),parseInt(ValueStackPos1),OperatorStackPos1);
+                    ValueStackPos1= operator(parseFloat(ValueStackPos2),parseFloat(ValueStackPos1),OperatorStackPos1);
                     updateValue(Math.round(ValueStackPos1*floatClamp)/floatClamp);
-                    ValueStackPos2=null;
+                    // ValueStackPos2=null;
                 }
-                permissionToClear=1;
+                // permissionToClear=1;
+                break;
+            case ".":
+                if (ValueStackPos1.indexOf(".")==-1){
+                    newValue=ValueStackPos1+".";
+                    ValueStackPos1=newValue;
+                    updateValue(ValueStackPos1);
+                }
                 break;
             default:
                 permissionToClear=1;
@@ -99,7 +106,7 @@ function keyInput(){
                     ValueStackPos2=ValueStackPos1;
                 }
                 else{
-                    ValueStackPos2= operator(parseInt(ValueStackPos2),parseInt(ValueStackPos1),OperatorStackPos1);
+                    ValueStackPos2= operator(parseFloat(ValueStackPos2),parseFloat(ValueStackPos1),OperatorStackPos1);
                     console.log(ValueStackPos2)
                 }
                 break;
@@ -120,7 +127,7 @@ function keyInput(){
             }
         }
     }
-    if(ValueStackPos1!=null){ValueStackPos1.length==10 ? updateError(1) : updateError(0);}
+    if(ValueStackPos1!=null){ValueStackPos1.toString().length>=9 ? updateError(1) : updateError(0);}
 }
 
 function initalize(){
