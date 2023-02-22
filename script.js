@@ -54,6 +54,7 @@ let newValue=0;
 let OperatorStackPos1="";
 let showError=0;
 let floatClamp=1000;
+let aux=0;
 function updateValue(a){
     display.textContent=a;
 }
@@ -85,9 +86,14 @@ function keyInput(){
             case "=":
                 if (ValueStackPos1==null){updateValue("0");}
                 else if (ValueStackPos2==null ||permissionToWrite==0){updateValue(ValueStackPos1);}
+                else if(ValueStackPos1==0 && ValueStackPos2==0 && OperatorStackPos1=="/"){updateValue("Magic!");}
                 else{
+                    aux=ValueStackPos1;
                     ValueStackPos1= operator(parseFloat(ValueStackPos2),parseFloat(ValueStackPos1),OperatorStackPos1);
                     updateValue(Math.round(ValueStackPos1*floatClamp)/floatClamp);
+                    ValueStackPos2=ValueStackPos1;
+                    ValueStackPos1=aux;
+                    
                     // ValueStackPos2=null;
                 }
                 // permissionToClear=1;
@@ -103,10 +109,13 @@ function keyInput(){
                 permissionToClear=1;
                 OperatorStackPos1=pressed;
                 if (ValueStackPos2==null){
+                    console.log("bruh")
                     ValueStackPos2=ValueStackPos1;
                 }
                 else{
-                    ValueStackPos2= operator(parseFloat(ValueStackPos2),parseFloat(ValueStackPos1),OperatorStackPos1);
+                    // ValueStackPos2= operator(parseFloat(ValueStackPos2),parseFloat(ValueStackPos1),OperatorStackPos1);
+                    // bro this line of code fucked up everythgin why did i write it
+                    updateValue(ValueStackPos2)
                     console.log(ValueStackPos2)
                 }
                 break;
